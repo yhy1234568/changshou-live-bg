@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>直播间背景板 · 暖米白浅木色 · 透明洞版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E6;       /* 暖米白底 */
+  --wood:#C4A276;        /* 浅木主色 */
+  --wood-deep:#A98257;   /* 深木 */
+  --brown:#4A3D2E;       /* 深棕文字 */
+  --muted:#8A7B63;       /* 灰棕副文字 */
+  --line:rgba(169,130,87,.35);
+  --panel:rgba(248,243,233,.82);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:transparent;display:flex;justify-content:center;align-items:center;min-height:100vh;min-height:100dvh;overflow:hidden;font-family:'Noto Sans SC',sans-serif}
+.stage{width:405px;height:720px;position:relative;background:transparent;transform-origin:center center}
+
+/* ===== 浅木画框 ===== */
+.frame{position:absolute;inset:0;z-index:20;pointer-events:none;border:1px solid rgba(169,130,87,.55);border-radius:18px}
+.frame::before{content:'';position:absolute;inset:5px;border:1px solid rgba(169,130,87,.22);border-radius:14px}
+.corner{position:absolute;width:34px;height:34px;z-index:21;pointer-events:none}
+.corner.tl{top:-1px;left:-1px;border-top:3px solid var(--wood);border-left:3px solid var(--wood);border-radius:18px 0 0 0}
+.corner.tr{top:-1px;right:-1px;border-top:3px solid var(--wood);border-right:3px solid var(--wood);border-radius:0 18px 0 0}
+.corner.bl{bottom:-1px;left:-1px;border-bottom:3px solid var(--wood);border-left:3px solid var(--wood);border-radius:0 0 0 18px}
+.corner.br{bottom:-1px;right:-1px;border-bottom:3px solid var(--wood);border-right:3px solid var(--wood);border-radius:0 0 18px 0}
+
+/* ===== 顶部横幅（不透明实色横条） ===== */
+.top-bar{position:absolute;top:0;left:0;right:0;z-index:15;display:flex;justify-content:space-between;align-items:center;padding:100px 24px 16px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#F5F0E6 0%,#EDE6D6 100%)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-logo{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:19px;font-weight:900;color:#fff;background:radial-gradient(circle at 32% 28%,rgba(196,162,118,.8),rgba(169,130,87,.95) 72%);box-shadow:inset 0 0 12px rgba(255,255,255,.35)}
+.brand-name{font-family:'Noto Serif SC',serif;font-size:21px;font-weight:900;color:var(--brown);letter-spacing:4px}
+.brand-sub{font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:3px}
+.live-tag{background:#E8483B;color:#fff;font-size:10px;padding:5px 12px;border-radius:999px;font-weight:700;letter-spacing:1px;display:flex;align-items:center;gap:5px;box-shadow:0 2px 10px rgba(232,72,59,.32)}
+.live-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ===== 左侧卖点（收窄外移） ===== */
+.sell-points{position:absolute;left:14px;top:170px;display:flex;flex-direction:column;gap:10px;z-index:15}
+.sell-tag{width:104px;padding:10px 11px;border-radius:12px;border:1px solid var(--line);border-left:2px solid var(--wood);background:var(--panel);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 10px rgba(120,95,60,.1)}
+.sell-tag-title{font-size:12px;font-weight:700;color:var(--brown);letter-spacing:.5px}
+.sell-tag-desc{font-size:9px;color:var(--muted);margin-top:3px}
+
+/* ===== 右侧数据（收窄外移） ===== */
+.data-points{position:absolute;right:14px;top:170px;display:flex;flex-direction:column;gap:10px;z-index:15;text-align:right}
+.data-tag{width:88px;padding:10px 11px;border-radius:12px;border:1px solid var(--line);border-right:2px solid var(--wood);background:var(--panel);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 10px rgba(120,95,60,.1)}
+.data-num{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:900;color:var(--wood-deep);line-height:1.1}
+.data-num small{font-size:12px;font-weight:400;color:var(--muted);vertical-align:2px}
+.data-label{font-size:9px;color:var(--muted);margin-top:3px}
+
+/* ===== 底部横幅（不透明实色横条） ===== */
+.bottom-bar{position:absolute;bottom:0;left:0;right:0;z-index:15;padding:14px 24px 16px;border-top:1px solid var(--line);background:linear-gradient(0deg,#F5F0E6 0%,#EDE6D6 100%)}
+.price-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px}
+.price-info .label{font-size:12px;color:var(--wood-deep);font-weight:500;letter-spacing:2px}
+.price-info .price{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:900;color:var(--brown);line-height:1;margin-top:4px}
+.price-info .price .approx{font-size:17px;font-weight:400;color:var(--muted);margin-right:7px}
+.price-info .price small{font-size:16px;font-weight:400;color:var(--wood-deep)}
+.cta-btn{background:linear-gradient(135deg,var(--wood),var(--wood-deep));color:#fff;font-size:12px;font-weight:700;padding:11px 22px;border-radius:999px;letter-spacing:2px;white-space:nowrap;box-shadow:0 6px 18px rgba(169,130,87,.32)}
+.feature-row{display:flex;gap:7px;flex-wrap:wrap}
+.chip{font-size:13px;color:var(--brown);border:1px solid rgba(169,130,87,.4);padding:5px 12px;border-radius:999px;background:rgba(196,162,118,.12)}
+.chip-hot{font-size:13px;color:#fff;border:none;padding:5px 12px;border-radius:999px;background:linear-gradient(135deg,var(--wood-deep),var(--wood));font-weight:700}
+
+/* ===== 导出模式 ===== */
+.export-mode .stage{transform-origin:center center}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="frame"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <div class="top-bar">
+    <div class="brand">
+      <div class="brand-logo">璞</div>
+      <div>
+        <div class="brand-name">璞缇一品</div>
+        <div class="brand-sub">四代住宅 · 桃花新城</div>
+      </div>
+    </div>
+    <div class="live-tag"><span class="live-dot"></span>LIVE</div>
+  </div>
+
+  <div class="sell-points">
+    <div class="sell-tag">
+      <div class="sell-tag-title">户户空中庭院</div>
+      <div class="sell-tag-desc">30-80㎡ · 270°观景</div>
+    </div>
+    <div class="sell-tag">
+      <div class="sell-tag-title">6米挑空跃墅</div>
+      <div class="sell-tag-desc">对标重庆主城新规</div>
+    </div>
+    <div class="sell-tag">
+      <div class="sell-tag-title">弧形玻璃幕墙</div>
+      <div class="sell-tag-desc">长寿封面级建筑</div>
+    </div>
+  </div>
+
+  <div class="data-points">
+    <div class="data-tag">
+      <div class="data-num">17<small>年</small></div>
+      <div class="data-label">本土深耕</div>
+    </div>
+    <div class="data-tag">
+      <div class="data-num">598<small>户</small></div>
+      <div class="data-label">纯粹改善</div>
+    </div>
+    <div class="data-tag">
+      <div class="data-num">80<small>米</small></div>
+      <div class="data-label">最大楼间距</div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="price-row">
+      <div class="price-info">
+        <div class="label">云幕系列 均价</div>
+        <div class="price"><span class="approx">约</span>5000<small>/㎡</small></div>
+      </div>
+      <div class="cta-btn">点风车预约 →</div>
+    </div>
+    <div class="feature-row">
+      <span class="chip">三公园环绕</span>
+      <span class="chip-hot">晶山小学+长寿中学</span>
+      <span class="chip">2.0容积率</span>
+      <span class="chip">一梯一户</span>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var stage=document.querySelector('.stage');
+  var isExport=location.search.indexOf('export=1')>-1;
+  if(isExport)document.body.classList.add('export-mode');
+  function fit(){var s=Math.min(window.innerWidth/405,window.innerHeight/720);stage.style.transform='scale('+s+')';}
+  fit();
+  window.addEventListener('resize',fit);
+  window.addEventListener('orientationchange',fit);
+})();
+</script>
+</body>
+</html>
